@@ -1,0 +1,8 @@
+.nav-link.active  {
+  border: 2px solid #198754; 
+  border-radius: 5px;
+  padding: 2px 10px;
+} 
+.fa-brands:hover {
+  color: #155724;
+}

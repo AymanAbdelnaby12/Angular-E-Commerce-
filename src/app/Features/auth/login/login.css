@@ -1,0 +1,35 @@
+.register-page {
+  height: calc(100vh - 70px); /* Navbar height offset */
+  background-color: #f8f9fa;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 450px; 
+  margin-top: 3rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+}
+
+.input-group-text {
+  background-color: #e9ecef;
+}
+
+input::placeholder {
+  font-size: 0.9rem;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* New for Dynamic Filled Label Color */
+.form-group label {
+  transition: color 0.3s ease;
+}
+
+.form-group.filled label {
+  color: #198754; /* Bootstrap Success Green */
+  font-weight: 600;
+}
