@@ -30,6 +30,8 @@ loginForm: FormGroup = new FormGroup({
         this.Isloading = false;
         if (response.message === 'success') {
           this.router.navigate(['/home']);
+          localStorage.setItem('userToken', response.token);
+          this.auth.decodeUserData();
         }
         console.log(response);
         this.loginForm.reset();
