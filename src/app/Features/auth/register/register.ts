@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../../../Core/services/auth-service';
+import { AuthService } from '../../../Core/services/authService/auth-service';
 import { CommonModule } from '@angular/common'; 
 import { Router, RouterLink } from '@angular/router';
 
@@ -33,7 +33,7 @@ export class Register {
         this.Isloading = false;
         if(response.message== 'success') 
           {
-            this.router.navigate(['/login']);
+            this.router.navigate(['/auth/login']);
           }
         console.log(response);
         this.registerForm.reset();

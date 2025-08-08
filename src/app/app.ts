@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { NavBar } from "./Features/layout/nav-bar/nav-bar"; 
+import { Component } from '@angular/core'; 
+import { Router, NavigationEnd, RouterOutlet, RouterModule } from '@angular/router';
+import { AuthService } from './Core/services/authService/auth-service'; 
+import { NavBar } from "./Features/layout/nav-bar/nav-bar";
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
+  selector: 'app-root', 
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css'],
+   imports: [RouterModule, CommonModule]
 })
 export class App {
-  protected title = 'E-Commerce';
+  
 }
