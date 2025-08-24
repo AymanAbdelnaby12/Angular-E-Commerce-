@@ -19,9 +19,20 @@
                 <a class="nav-link text-dark fw-semibold" routerLink="/products" routerLinkActive="active">Products</a>
                 </li>
                 @if (isLogin) {
-                  <li class="nav-item">
-                  <a class="nav-link text-dark fw-semibold" routerLink="/cart" routerLinkActive="active">Cart</a>
-                  </li>
+                <li class="nav-item">
+                  <a class="nav-link text-dark fw-semibold position-relative" 
+                    routerLink="/cart" 
+                    routerLinkActive="active">
+                    
+                    <i class="fa-solid fa-cart-shopping fa-lg"></i>
+                     
+                    <span *ngIf="cartNumber > 0" 
+                          class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                      {{ cartNumber }}
+                    </span>
+                  </a>
+                </li>
+
                 }
                 <li class="nav-item">
                 <a class="nav-link text-dark fw-semibold" routerLink="/brand" routerLinkActive="active">Brands</a>

@@ -3,5 +3,8 @@ export interface Auth {
     email:string,
     password:string,
     rePassword?:string,
-    phone?:number
+    phone?:number,
+    resetCode?:string,
+    newPassword?:string,
+
 }

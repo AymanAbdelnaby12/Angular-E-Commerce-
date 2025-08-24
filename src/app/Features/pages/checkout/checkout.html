@@ -1,0 +1,56 @@
+<section class="register-page d-flex justify-content-center align-items-center">
+<div class="register-card  rounded-4 p-4 bg-white">
+    <h3 class="mb-4 fw-bold text-center text-success">CheckOut</h3>
+    <div>
+        <!-- <p class="text-center text-danger">{{ errMessage }}</p> -->
+    </div>
+    <form [formGroup]="CheckOutForm" (ngSubmit)="submitForm()" class="register-form"> 
+    <div class="form-group mb-3">
+        <label for="details" class="form-label">Email</label>
+        <div class="input-group"> 
+        <input type="text" id="details" formControlName="details" class="form-control" placeholder="details">
+        </div>
+        @if(this.CheckOutForm.get('details')?.errors && this.CheckOutForm.get('details')?.touched) {
+            <div class="text-danger">
+                <small *ngIf="CheckOutForm.get('details')?.errors?.['required']">Details are required.</small> 
+            </div>
+        }
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="phoneNumber" class="form-label">Phone Number</label>
+        <div class="input-group"> 
+        <input type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control" placeholder="Enter your Phone Number">
+        </div>
+        @if(this.CheckOutForm.get('phoneNumber')?.errors && this.CheckOutForm.get('phoneNumber')?.touched) {
+            <div class="text-danger ">
+                <small *ngIf="CheckOutForm.get('phoneNumber')?.errors?.['required']">Phone Number is required.</small> 
+            </div>
+        }
+    </div>
+    <div class="form-group mb-3">
+        <label for="City" class="form-label">City</label>
+        <div class="input-group"> 
+        <input type="text" id="City" formControlName="City" class="form-control" placeholder="Enter your City">
+        </div>
+        @if(this.CheckOutForm.get('City')?.errors && this.CheckOutForm.get('City')?.touched) {
+            <div class="text-danger ">
+                <small *ngIf="CheckOutForm.get('City')?.errors?.['required']">City is required.</small> 
+            </div>
+        }
+    </div>
+
+    
+
+<button type="submit" class="btn btn-success w-100" [disabled]="Isloading">
+    <span *ngIf="Isloading">
+        <i class="fa-solid fa-spinner fa-spin"></i> Loading...
+    </span>
+    <span *ngIf="!Isloading">
+        Checkout
+    </span>
+</button>
+
+</form>
+</div>
+</section>

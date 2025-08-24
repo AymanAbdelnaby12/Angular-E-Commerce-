@@ -1,21 +1,33 @@
 import { ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-import { provideRouter, withRouterConfig } from '@angular/router';
+import { provideRouter, RouterModule, withRouterConfig } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
-import { ShortTitlePipe } from './Shared/pipe/short-title-pipe';
+import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http'; 
+import { AuthInterceptor } from './Core/interceptor/Auth.Interceptor';
+import { provideToastr, ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [ 
      provideRouter(
       routes,
-      withRouterConfig({ onSameUrlNavigation: 'reload' }) // 👈 هنا
+      withRouterConfig({ onSameUrlNavigation: 'reload' }) 
     ),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideClientHydration(withEventReplay()),
-    importProvidersFrom(HttpClientModule),
+    importProvidersFrom(HttpClientModule,RouterModule,BrowserAnimationsModule),
       provideHttpClient(withFetch()), 
+      provideRouter(routes),
+      BrowserAnimationsModule,
+    provideHttpClient(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    provideAnimations(),
+    provideToastr()
   ]
 };

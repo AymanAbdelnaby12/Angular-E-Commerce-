@@ -6,6 +6,8 @@ import { CurrencyPipe } from '@angular/common';
 import { SearchingPipe } from '../../../Shared/pipe/searching-pipe';
 import { FormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
+import { CartService } from '../../../Core/services/Cart/cart-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-products',
@@ -22,7 +24,9 @@ export class Products {
   constructor(
     private products: ProductService,
     private router: Router,
-    private cdr: ChangeDetectorRef  // to handle change detection
+    private cdr: ChangeDetectorRef , // to handle change detection
+    private cartService: CartService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -36,7 +40,7 @@ export class Products {
         console.log(response.data);
         this.productsList = response.data;
         this.isLoading = false;
-        this.cdr.detectChanges(); // to ensure the view updates with the new data
+        this.cdr.detectChanges(); 
       },
       error: (error) => {
         console.error('Error fetching products:', error);
@@ -44,4 +48,27 @@ export class Products {
       }
     });
   }
+addToCart(productId: string) {
+  this.toastr.info('Adding product to cart...', 'Please wait',{
+    closeButton: true,  
+    positionClass: 'toast-top-left',
+    timeOut: 1000
+  });
+  
+  this.cartService.addToCart(productId).subscribe({
+    next: (response) => {
+      this.cartService.cartNumber.next(response.numOfCartItem); 
+      this.toastr.clear(); 
+      this.toastr.success(response.message, 'Success',{
+        closeButton: true, 
+        positionClass: 'toast-top-left',
+        timeOut: 2000
+      });
+    },
+    error: (error) => {
+      this.toastr.clear();
+      this.toastr.error('Failed to add product', 'Error');
+    }
+  });
+}
 }

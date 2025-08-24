@@ -20,7 +20,7 @@ export class Register {
     email:new FormControl('',[Validators.required,Validators.email]),
     password:new FormControl('',[Validators.required,Validators.minLength(6)]),
     rePassword:new FormControl('',[Validators.required,Validators.minLength(6)]),
-    phone:new FormControl('',[Validators.required, Validators.pattern(/^01[0125][0-9]{8}$/)]),
+    phone:new FormControl('',[Validators.required]),
   });
   submitForm() {
       if (this.registerForm.invalid) {

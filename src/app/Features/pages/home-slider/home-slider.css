@@ -1,0 +1,9 @@
+.slider-img {
+  object-fit: cover;
+  height: 400px; 
+}
+
+.banner-img {
+  object-fit: cover;
+  height: 250px; 
+}

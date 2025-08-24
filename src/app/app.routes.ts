@@ -1,17 +1,7 @@
 import { Routes } from '@angular/router'; 
-import { Home } from './Features/pages/home/home';
-import { Products } from './Features/pages/products/products';
-import { ProductDetails } from './Features/pages/product-details/product-details';
-import { Cart } from './Features/pages/cart/cart';
-import { Brands } from './Features/pages/brands/brands';
-import { Categories } from './Features/pages/categories/categories';
 import { NotFound } from './Features/pages/not-found/not-found'; 
 import { AuthLayout } from './Features/layout/auth-layout/auth-layout';
-import { MainLayout } from './Features/layout/main-layout/main-layout';
-import { Login } from './Features/auth/login/login';   
-import { Register } from './Features/auth/register/register';  
-import { authGuard } from './Core/guard/authGuard/auth-guard';
-import { checkTokenGuard } from './Core/guard/checkToken/check-token-guard';
+import { MainLayout } from './Features/layout/main-layout/main-layout'; 
 
 export const routes: Routes = [
     // Auth routes
@@ -19,8 +9,9 @@ export const routes: Routes = [
         path: 'auth', 
         component: AuthLayout,
         children: [
-            { path: 'login', component: Login, canActivate: [checkTokenGuard], title: 'Login' },
-            { path: 'register', component: Register, canActivate: [checkTokenGuard], title: 'Register' },
+            {path:'login',loadComponent:()=>import('../app/Features/auth/login/login').then((C)=>C.Login)},
+            {path:'register',loadComponent:()=>import('../app/Features/auth/register/register').then((C)=>C.Register)},
+            {path:'forget-password',loadComponent:()=>import('../app/Features/auth/forget-password/forget-password').then((C)=>C.ForgetPassword)},
             { path: '', redirectTo: 'login', pathMatch: 'full' }
         ]
     },
@@ -31,12 +22,14 @@ export const routes: Routes = [
         component: MainLayout,
         children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' }, 
-            { path: 'home', component: Home, title: 'Home' },
-            { path: 'products', component: Products, title: 'Products' },
-            { path: 'productDetails/:id', component: ProductDetails, title: 'Product Details' },
-            { path: 'brand', component: Brands, title: 'Brand' },
-            { path: 'cart', component: Cart, canActivate: [authGuard], title: 'Cart' },
-            { path: 'category', component: Categories, title: 'Category' }
+            {path: 'home', loadComponent:()=> import('../app/Features/pages/home/home').then((c)=>c.Home)}, 
+            {path: 'products', loadComponent:()=> import('../app/Features/pages/products/products').then((c)=>c.Products)},
+            {path:'productDetails/:id',loadComponent:()=>import('../app/Features/pages/product-details/product-details').then((c)=>c.ProductDetails)},
+            {path:'brand',loadComponent:()=>import('../app/Features/pages/brands/brands').then((c)=>c.Brands)}, 
+            {path :'cart',loadComponent:()=>import('../app/Features/pages/cart/cart').then((c)=>c.Cart)}, 
+            {path:'allorders',loadComponent:()=>import('../app/Features/pages/all-orders/all-orders').then((c)=>c.AllOrders)},
+            {path:'checkout/:id',loadComponent:()=>import('../app/Features/pages/checkout/checkout').then((C)=>C.Checkout)},
+            {path:'category',loadComponent:()=>import('../app/Features/pages/categories/categories').then((c)=>c.Categories)},
         ]
     },
     
